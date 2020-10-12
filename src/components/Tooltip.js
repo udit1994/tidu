@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   padding: 0 5px;
   position: absolute;
   top: 30px;
+  z-index: 200;
 
   ::after {
     border: 5px solid;

@@ -28,15 +28,17 @@ const Wrapper = styled.section`
   ::before {
     ${pseudoBackground}
     border-color: red;
-    left: -250px;
-    top: 200px;
+    border-radius: 5%/90%;
+    left: 0;
+    bottom: 0;
   }
 
   ::after {
     ${pseudoBackground}
     border-color: yellow;
-    right: -250px;
-    top: -100px;
+    border-radius: 50%/90%;
+    right: 0;
+    top: 0;
   }
 `;
 
