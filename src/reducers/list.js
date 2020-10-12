@@ -38,28 +38,23 @@ function list(state = initialState, action) {
         1: { ...state[1], cards: [...state[1].cards, cardId] },
       };
     case types.UPDATE_TODO:
-      const {
-        id: myId,
-        list: newListId,
-        prevList: prevListId,
-      } = action.payload;
+      const { id: myId, newBelongsTo, belongsTo } = action.payload;
 
-      if (prevListId === newListId) {
+      if (belongsTo === newBelongsTo) {
         return { ...state };
       }
 
-      const removeFromList = state[prevListId].cards.filter(
-        (id) => id !== myId
-      );
+      const removeFromList = state[belongsTo].cards.filter((id) => id !== myId);
 
       return {
         ...state,
-        [prevListId]: { ...state[prevListId], cards: removeFromList },
-        [newListId]: {
-          ...state[newListId],
-          cards: [...state[newListId].cards, myId],
+        [belongsTo]: { ...state[belongsTo], cards: removeFromList },
+        [newBelongsTo]: {
+          ...state[newBelongsTo],
+          cards: [...state[newBelongsTo].cards, myId],
         },
       };
+
     case types.DELETE_TODO:
       const { cardId: todoId, listId } = action.payload;
 

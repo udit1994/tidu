@@ -19,6 +19,7 @@ const Wrapper = styled.section`
   overflow-x: auto;
   padding: 20px 0;
   position: relative;
+  min-width: 1336px;
 
   @media only screen and (max-width: 600px) {
     min-width: 0px;
