@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head manifest="/cache.manifest">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=0"
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Manage your todos, even without internet."
+    />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./images/apple-touch-icon-180x180.png"
+    />
+
+    <link rel="icon" href="./images/favicon-16x16.png" />
+    <link rel="manifest" href="./manifest.json" />
+
+    <title>TIDU | TODO</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("./serviceworker.js")
+            .then((reg) => console.log("Service Worker Activated"))
+            .catch((err) =>
+              console.log("Service Worker Failed To activate ", err)
+            );
+        });
+      }
+    </script>
+  </body>
+</html>
