@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import Tooltip from "components/Tooltip";
+import useTooltip from "hooks/useTooltip";
 import useInput from "hooks/useInput";
 
 export const CustomInput = styled.input`
@@ -14,6 +15,7 @@ export const CustomInput = styled.input`
 `;
 
 function InputText({
+  className,
   defaultValue,
   formRef,
   handleBlur,
@@ -28,24 +30,20 @@ function InputText({
     name,
     validationCallback
   );
-
-  const tooltipRef = useRef();
-
-  const callbackRef = (element) => {
-    tooltipRef.current = element?.getBoundingClientRect();
-  };
+  const [tooltipRef, callbackRef] = useTooltip();
 
   return (
     <>
       <CustomInput
+        className={className}
         autoFocus
         onBlur={handleBlur ? handleBlur : null}
         onChange={handleChange ? handleChange : null}
         onKeyDown={handleKeyDown ? handleKeyDown : null}
+        ref={callbackRef}
         style={style}
         type="text"
         value={field.data}
-        ref={callbackRef}
       />
       <Tooltip show={field.error} coords={tooltipRef.current}>
         {field.error}

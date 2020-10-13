@@ -9,18 +9,18 @@ import Form from "components/Form";
 
 const colors = ["violet", "orange", "lightblue", "pink"];
 
-export const Wrapper = styled.header`
+const Wrapper = styled.header`
   background-color: ${(props) => props.backgroundColor};
-  font-size: 2em;
   text-align: center;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   z-index: 10;
+  height: 30px;
+  padding-top: 5px;
 `;
 
-export const Title = styled.p`
-  display: inline;
-  text-transform: uppercase;
+const Title = styled.p`
+  margin: 0;
 `;
 
 function ListHeader({ children, id, index, showGuide }) {

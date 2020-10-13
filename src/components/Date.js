@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled from "styled-components";
 
+import { InputStyle } from "mixins";
 import Tooltip from "components/Tooltip";
 import useInput from "hooks/useInput";
-import { InputStyle } from "mixins";
+import useTooltip from "hooks/useTooltip";
 
 export const CustomDate = styled.input`
   ${InputStyle}
@@ -16,11 +17,8 @@ function Date({ className, defaultValue, formRef, name, validationCallback }) {
     name,
     validationCallback
   );
-  const tooltipRef = useRef();
 
-  const callbackRef = (element) => {
-    tooltipRef.current = element?.getBoundingClientRect();
-  };
+  const [tooltipRef, callbackRef] = useTooltip();
 
   return (
     <>

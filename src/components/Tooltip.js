@@ -2,18 +2,20 @@ import React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  background-color: #fefff7;
+  background-color: pink;
   border-radius: 5px;
   z-index: 200;
+  padding: 2px;
   position: fixed;
   top: ${(props) => props.y}px;
   left: ${(props) => props.x}px;
+  display: inline;
 
   ::after {
     border: 5px solid;
-    border-color: transparent transparent white transparent;
+    border-color: transparent transparent pink transparent;
     content: "";
-    left: 100px;
+    left: 50%;
     position: absolute;
     top: -10px;
     margin: auto;
