@@ -29,7 +29,13 @@ function list(state = initialState, action) {
     case types.CHANGE_TITLE:
       const { id, title } = action.payload;
 
-      return Object.assign({}, state, Object.assign({}, state[id], { title }));
+      return {
+        ...state,
+        [id]: {
+          ...state[id],
+          title,
+        },
+      };
     case types.ADD_TODO:
       const { id: cardId } = action.payload;
 
@@ -56,13 +62,13 @@ function list(state = initialState, action) {
       };
 
     case types.DELETE_TODO:
-      const { cardId: todoId, listId } = action.payload;
+      const { todoId, belongsTo: bt } = action.payload;
 
-      const newListIds = state[listId].cards.filter((id) => id !== todoId);
+      const newListIds = state[bt].cards.filter((id) => id !== todoId);
 
       return {
         ...state,
-        [listId]: { ...state[1], cards: newListIds },
+        [todoId]: { ...state[1], cards: newListIds },
       };
     case types.CHANGE_STATUS:
       const { cardId: cId, listId: oldlId, newList } = action.payload;

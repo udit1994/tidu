@@ -3,14 +3,19 @@ import { useSelector } from "react-redux";
 import React, { useRef } from "react";
 import styled from "styled-components";
 
-import { deleteTodo, deselectTodo, updateTodo } from "actions/todo";
 import { cardInfoSelector } from "selectors/cardSelector";
-import { listSelector } from "selectors/listSelector";
-
-import { Close, MyDate, MyTextArea, Submit, Wrapper } from "components/AddForm";
+import { deleteTodo, deSelectTodo, updateTodo } from "actions/todo";
 import { isFutureDate } from "utils/date";
+import { listSelector } from "selectors/listSelector";
+import {
+  Close,
+  MyDate,
+  MyForm,
+  MyTextArea,
+  Submit,
+  Wrapper,
+} from "components/AddForm";
 import Button from "components/Button";
-import Form from "components/Form";
 import Select from "components/Select";
 
 const Delete = styled(Button)`
@@ -49,7 +54,7 @@ function EditForm({ setShowForm }) {
 
   const handleClose = () => {
     setShowForm(null);
-    dispatch(deselectTodo());
+    dispatch(deSelectTodo());
   };
 
   const handleDeleteCard = () => {
@@ -76,9 +81,23 @@ function EditForm({ setShowForm }) {
     handleClose();
   };
 
+  const validationCallback = (data) => {
+    if (isFutureDate(data)) {
+      return {
+        result: true,
+        error: null,
+      };
+    }
+
+    return {
+      result: false,
+      error: `Past dates not allowed 🙂`,
+    };
+  };
+
   return (
     <Wrapper>
-      <Form formRef={formRef}>
+      <MyForm formRef={formRef}>
         <Close handleClick={handleClose}>X</Close>
         <MyTextArea
           autoFocus
@@ -89,7 +108,7 @@ function EditForm({ setShowForm }) {
         <MyDate
           defaultValue={oldDueDate}
           name="dueDate"
-          validation={isFutureDate}
+          validationCallback={validationCallback}
         />
         <Status defaultValue={belongsTo} name="newBelongsTo">
           {Object.values(listData).reduce((acc, data, index) => {
@@ -114,7 +133,7 @@ function EditForm({ setShowForm }) {
         >
           Update
         </Submit>
-      </Form>
+      </MyForm>
     </Wrapper>
   );
 }

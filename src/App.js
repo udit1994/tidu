@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import React, { lazy, Suspense, useRef, useState } from "react";
 import styled from "styled-components";
 
-import { fullWidthModal } from "mixins";
+import { fullScreen } from "mixins";
 import { listSelector } from "selectors/listSelector";
 import { pseudoBackground } from "mixins";
 import AddTodo from "components/AddTodo";
@@ -14,7 +14,7 @@ const AddForm = lazy(() => import("components/AddForm"));
 const EditForm = lazy(() => import("components/EditForm"));
 
 const Wrapper = styled.section`
-  ${fullWidthModal}
+  ${fullScreen}
   justify-content: space-around;
   overflow-x: auto;
   padding: 20px 0;

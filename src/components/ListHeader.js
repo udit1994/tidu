@@ -1,10 +1,11 @@
 import { useDispatch } from "react-redux";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
 import { changeTitle } from "actions/list";
 import Tooltip from "components/Tooltip";
-import TextInput from "components/InputText";
+import InputText from "components/InputText";
+import Form from "components/Form";
 
 const colors = ["violet", "orange", "lightblue", "pink"];
 
@@ -24,36 +25,39 @@ export const Title = styled.p`
 
 function ListHeader({ children, id, index, showGuide }) {
   const dispatch = useDispatch();
+  const formRef = useRef({});
 
   const [showInput, setShowInput] = useState(false);
-  const [showToolTip, setShowTooltip] = useState(false);
 
-  const validation = (data) => {
+  const validationCallback = (data) => {
     if (data.length < 20) {
-      setShowTooltip(false);
-
-      return true;
+      return { result: true };
     }
 
-    setShowTooltip(true);
-
-    return false;
+    return {
+      result: false,
+      error: ` Max Length 20 characters 🙂`,
+    };
   };
 
-  const handleClick = () => {
+  const handleBlur = () => {
+    const { header } = formRef.current;
+
+    if (header) {
+      dispatch(changeTitle(id, header));
+    }
     setShowInput((showInput) => !showInput);
   };
 
   const handleKeyDown = (e) => {
     if (e.keyCode === 13) {
-      dispatch(changeTitle(id, e.target.value));
-      setShowInput((showInput) => !showInput);
+      handleBlur();
     }
   };
 
   const render = !showInput ? (
     <>
-      <Title index={index} onDoubleClick={handleClick}>
+      <Title index={index} onDoubleClick={handleBlur}>
         {children}
       </Title>
       <Tooltip show={showGuide && index === 0}>
@@ -61,21 +65,16 @@ function ListHeader({ children, id, index, showGuide }) {
       </Tooltip>
     </>
   ) : (
-    <>
-      <TextInput
+    <Form formRef={formRef}>
+      <InputText
         defaultValue={children}
-        handleBlur={handleClick}
+        handleBlur={handleBlur}
         handleKeyDown={handleKeyDown}
+        name="header"
         style={{ backgroundColor: colors[index] }}
-        validationCallback={validation}
+        validationCallback={validationCallback}
       />
-      <Tooltip show={showToolTip}>
-        Max Length 20 characters{" "}
-        <span role="img" aria-label="smile">
-          🙂
-        </span>
-      </Tooltip>
-    </>
+    </Form>
   );
 
   return <Wrapper backgroundColor={colors[index]}>{render}</Wrapper>;

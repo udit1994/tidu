@@ -63,10 +63,10 @@ function Lists({ listIds, setshowForm, showGuide, showForm }) {
         <ListHeader id={id} index={index} showGuide={showGuide}>
           {listData[id].title}
         </ListHeader>
-        {listData[id].cards.map((cardId) => (
+        {listData[id].cards.map((todoId) => (
           <Todo
-            cardId={cardId}
-            key={cardId}
+            todoId={todoId}
+            key={todoId}
             setDragCard={setDragCard}
             setshowForm={setshowForm}
           />

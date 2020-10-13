@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
+
+import Tooltip from "components/Tooltip";
+import useInput from "hooks/useInput";
 
 export const CustomInput = styled.input`
   border: 0;
@@ -10,34 +13,45 @@ export const CustomInput = styled.input`
   }
 `;
 
-function TextInput({
+function InputText({
   defaultValue,
+  formRef,
   handleBlur,
   handleKeyDown,
+  name,
   style,
   validationCallback,
 }) {
-  const [value, setValue] = useState(defaultValue ? defaultValue : "");
+  const [field, handleChange] = useInput(
+    defaultValue,
+    formRef,
+    name,
+    validationCallback
+  );
 
-  const handleChange = (e) => {
-    const data = e.target.value;
+  const tooltipRef = useRef();
 
-    if (validationCallback(data)) {
-      setValue(data);
-    }
+  const callbackRef = (element) => {
+    tooltipRef.current = element?.getBoundingClientRect();
   };
 
   return (
-    <CustomInput
-      autoFocus
-      onBlur={handleBlur ? handleBlur : null}
-      onChange={handleChange ? handleChange : null}
-      onKeyDown={handleKeyDown ? handleKeyDown : null}
-      style={style}
-      type="text"
-      value={value}
-    />
+    <>
+      <CustomInput
+        autoFocus
+        onBlur={handleBlur ? handleBlur : null}
+        onChange={handleChange ? handleChange : null}
+        onKeyDown={handleKeyDown ? handleKeyDown : null}
+        style={style}
+        type="text"
+        value={field.data}
+        ref={callbackRef}
+      />
+      <Tooltip show={field.error} coords={tooltipRef.current}>
+        {field.error}
+      </Tooltip>
+    </>
   );
 }
 
-export default TextInput;
+export default InputText;

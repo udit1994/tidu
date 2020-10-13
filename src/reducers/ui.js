@@ -7,8 +7,10 @@ function card(state = initialState, action) {
     case types.SELECT_TODO:
       const { id } = action.payload;
       return { ...state, selectedCard: id };
+
     case types.UNSELECT_TODO:
       return { ...state, selectedCard: null };
+
     default:
       return state;
   }

@@ -42,23 +42,23 @@ const Footer = styled.footer`
   width: 100%;
 `;
 
-function Todo({ cardId, setDragCard, setshowForm }) {
+function Todo({ todoId, setDragCard, setshowForm }) {
   const dispatch = useDispatch();
   const cardData = useSelector(cardSelector);
 
-  const { belongsTo, description, dueDate, startDate } = cardData[cardId];
+  const { belongsTo, description, dueDate, startDate } = cardData[todoId];
 
-  const handleDoubleClick = (e) => {
-    dispatch(selectTodo(cardId));
+  const handleDoubleClick = () => {
+    dispatch(selectTodo(todoId));
 
     setshowForm("update");
   };
 
-  const handleOnDragStart = () => setDragCard([cardId, belongsTo]);
+  const handleOnDragStart = () => setDragCard([todoId, belongsTo]);
 
   return (
     <Wrapper
-      color={colors[cardId % colors.length]}
+      color={colors[todoId % colors.length]}
       draggable="true"
       onDoubleClick={handleDoubleClick}
       onDragStart={handleOnDragStart}

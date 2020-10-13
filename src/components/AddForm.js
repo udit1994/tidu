@@ -3,10 +3,11 @@ import { useSelector } from "react-redux";
 import React, { useRef } from "react";
 import styled from "styled-components";
 
-import { addTodo, deselectTodo } from "actions/todo";
+import { addTodo } from "actions/todo";
 import { cardIdSelector } from "selectors/cardSelector";
 
-import { fullWidthModal } from "mixins";
+import { fullScreen } from "mixins";
+import { modal } from "mixins";
 import Button from "components/Button";
 import CloseButton from "components/CloseButton";
 import Date from "components/Date";
@@ -35,7 +36,7 @@ export const MyTextArea = styled(TextArea)`
 `;
 
 export const Wrapper = styled.section`
-  ${fullWidthModal}
+  ${fullScreen}
   z-index: 150;
 
   @media only screen and (max-width: 600px) {
@@ -64,6 +65,12 @@ export const Submit = styled(Button)`
   }
 `;
 
+export const MyForm = styled(Form)`
+  ${modal}
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  grid-template-rows: repeat(14, 1fr);
+`;
 function AddForm({ setShowForm }) {
   const dispatch = useDispatch();
   const newCardId = useSelector(cardIdSelector);
@@ -71,7 +78,6 @@ function AddForm({ setShowForm }) {
 
   const handleClose = () => {
     setShowForm(null);
-    dispatch(deselectTodo());
   };
 
   const handleSubmit = () => {
@@ -91,9 +97,23 @@ function AddForm({ setShowForm }) {
     handleClose();
   };
 
+  const validationCallback = (data) => {
+    if (isFutureDate(data)) {
+      return {
+        result: true,
+        error: null,
+      };
+    }
+
+    return {
+      result: false,
+      error: `Past dates not allowed 🙂`,
+    };
+  };
+
   return (
     <Wrapper>
-      <Form formRef={formRef}>
+      <MyForm formRef={formRef}>
         <Close handleClick={handleClose}>X</Close>
         <MyTextArea
           autoFocus
@@ -104,7 +124,7 @@ function AddForm({ setShowForm }) {
         <MyDate
           defaultValue={defaultDate}
           name="dueDate"
-          validation={isFutureDate}
+          validationCallback={validationCallback}
         />
         <Submit
           backgroundColor="#6a82fb"
@@ -113,7 +133,7 @@ function AddForm({ setShowForm }) {
         >
           Add
         </Submit>
-      </Form>
+      </MyForm>
     </Wrapper>
   );
 }

@@ -5,9 +5,9 @@ export const addTodo = (id, description, dueDate, startDate) => ({
   payload: { description, dueDate, id, startDate },
 });
 
-export const deleteTodo = (cardId, listId) => ({
+export const deleteTodo = (todoId, belongsTo) => ({
   type: types.DELETE_TODO,
-  payload: { cardId, listId },
+  payload: { belongsTo, todoId },
 });
 
 export const updateTodo = (
@@ -32,7 +32,7 @@ export const selectTodo = (cardId) => ({
   payload: { id: cardId },
 });
 
-export const deselectTodo = (cardId) => ({
+export const deSelectTodo = (cardId) => ({
   type: types.UNSELECT_TODO,
   payload: { cardId },
 });

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { InputStyle } from "mixins";
+import Tooltip from "components/Tooltip";
+import useInput from "hooks/useInput";
 
 export const CustomTextarea = styled.textarea`
   ${InputStyle}
@@ -17,23 +19,19 @@ function TextArea({
   name,
   placeholder,
 }) {
-  const [value, setValue] = useState(defaultValue ? defaultValue : "");
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-
-    formRef.current[name] = value;
-    setValue(value);
-  };
+  const [field, handleChange] = useInput(defaultValue, formRef, name, null);
 
   return (
-    <CustomTextarea
-      autoFocus={autofocus}
-      className={className}
-      onChange={handleChange}
-      placeholder={placeholder ? placeholder : ""}
-      value={value}
-    />
+    <>
+      <CustomTextarea
+        autoFocus={autofocus}
+        className={className}
+        onChange={handleChange}
+        placeholder={placeholder ? placeholder : ""}
+        value={field.data}
+      />
+      <Tooltip show={field.error}>{field.error}</Tooltip>
+    </>
   );
 }
 

@@ -1,15 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-import { fullWidthModal } from "mixins";
+import { modal, fullScreen } from "mixins";
 
 const Wrapper = styled.section`
-  ${fullWidthModal}
+  ${fullScreen}
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9;
 `;
 
 const Article = styled.article`
+  ${modal}
   background-color: #fefff7;
   background-size: 300% 300%;
   border-radius: 15px;
@@ -22,7 +23,7 @@ const Article = styled.article`
 function Guide({ showGuide, setShowGuide }) {
   return showGuide ? (
     <Wrapper onClick={() => setShowGuide(false)}>
-      <Article>content</Article>
+      <Article></Article>
     </Wrapper>
   ) : null;
 }

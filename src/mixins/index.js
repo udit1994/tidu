@@ -1,4 +1,4 @@
-export const fullWidthModal = () => `
+export const fullScreen = () => `
   align-items: center;
   display: flex;
   height: 100%;
@@ -7,6 +7,20 @@ export const fullWidthModal = () => `
   position: fixed;
   top: 0;
   width: 100%;
+`;
+
+export const modal = () => `
+  background-color: #fefff7;
+  border-radius: 15px;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
+  height: 300px;
+  opacity: 1;
+  width: 600px;
+  z-index: 200;
+
+  @media only screen and (max-width: 600px) {
+    height: 300px;
+  }
 `;
 
 export const pseudoBackground = () => `

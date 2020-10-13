@@ -4,12 +4,10 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   background-color: #fefff7;
   border-radius: 5px;
-  left: 50px;
-  margin: 10px;
-  padding: 0 5px;
-  position: absolute;
-  top: 30px;
   z-index: 200;
+  position: fixed;
+  top: ${(props) => props.y}px;
+  left: ${(props) => props.x}px;
 
   ::after {
     border: 5px solid;
@@ -22,10 +20,16 @@ const Wrapper = styled.div`
   }
 `;
 
-function Tooltip({ children, show }) {
+function Tooltip({ children, coords, show }) {
+  if (!show) {
+    return null;
+  }
+
+  const { left, top, height } = coords;
+
   return (
     show && (
-      <Wrapper>
+      <Wrapper x={left} y={top + height + 10}>
         <p>{children}</p>
       </Wrapper>
     )
