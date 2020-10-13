@@ -21,9 +21,9 @@ const Wrapper = styled.article`
 
 const Description = styled.pre`
   flex-grow: 2;
-  padding: 5px 10px 10px;
   margin: 0px;
   overflow: hidden;
+  padding: 5px 10px 10px;
   text-justify: auto;
 
   ::first-letter {
@@ -54,14 +54,14 @@ function Todo({ todoId, setDragCard, setshowForm }) {
     setshowForm("update");
   };
 
-  const handleOnDragStart = () => setDragCard([todoId, belongsTo]);
+  const handleDragStart = () => setDragCard([todoId, belongsTo]);
 
   return (
     <Wrapper
       color={colors[todoId % colors.length]}
       draggable="true"
       onDoubleClick={handleDoubleClick}
-      onDragStart={handleOnDragStart}
+      onDragStart={handleDragStart}
     >
       <Description>{description}</Description>
       <Footer>

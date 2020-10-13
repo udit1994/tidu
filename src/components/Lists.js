@@ -1,13 +1,13 @@
-import { useDispatch } from "react-redux";
 import { Scrollbars } from "react-custom-scrollbars";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import { changeStatus } from "actions/todo";
 import { listSelector } from "selectors/listSelector";
 import ListHeader from "./ListHeader";
 import Todo from "./Todo";
-import { changeStatus } from "actions/todo";
 
 const Container = styled.section`
   border-radius: 20px;
@@ -15,18 +15,15 @@ const Container = styled.section`
   height: 100%;
   margin-left: 5px;
   margin-right: 5px;
-  width: 350px;
-  -moz-box-shadow: 0px 0px 11px 2px rgba(0, 0, 0, 0.75);
-  -webkit-box-shadow: 0px 0px 11px 2px rgba(0, 0, 0, 0.75);
-  overflow: auto;
   opacity: ${(props) => (props.showForm ? "0.5" : "1")};
+  overflow: auto;
+  width: 350px;
+  -webkit-box-shadow: 0px 0px 11px 2px rgba(0, 0, 0, 0.75);
 
   @media only screen and (max-width: 600px) {
     box-shadow: none;
     margin: 0;
     width: calc(100% - 6px);
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
   }
 `;
 
@@ -34,7 +31,6 @@ const hideScrollbar = () => <div />;
 
 function Lists({ listIds, setshowForm, showForm }) {
   const dispatch = useDispatch();
-
   const listData = useSelector(listSelector);
   const [dragCard, setDragCard] = useState(null);
   const [newDragList, setNewDragList] = useState(null);
@@ -45,13 +41,12 @@ function Lists({ listIds, setshowForm, showForm }) {
     setNewDragList(id);
   };
 
-  const handleOnDragEnd = () =>
-    dispatch(changeStatus(newDragList, ...dragCard));
+  const handleDragEnd = () => dispatch(changeStatus(newDragList, ...dragCard));
 
   return listIds.map((id, index) => (
     <Container
       key={id}
-      onDragEnd={handleOnDragEnd}
+      onDragEnd={handleDragEnd}
       onDragEnter={(e) => handleDragEnter(id, e)}
       onDragOver={(e) => e.preventDefault()}
       showForm={showForm}
@@ -65,10 +60,10 @@ function Lists({ listIds, setshowForm, showForm }) {
         </ListHeader>
         {listData[id].cards.map((todoId) => (
           <Todo
-            todoId={todoId}
             key={todoId}
             setDragCard={setDragCard}
             setshowForm={setshowForm}
+            todoId={todoId}
           />
         ))}
       </Scrollbars>

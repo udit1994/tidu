@@ -5,7 +5,6 @@ import styled from "styled-components";
 
 import { addTodo } from "actions/todo";
 import { cardIdSelector } from "selectors/cardSelector";
-
 import { fullScreen } from "mixins";
 import { modal } from "mixins";
 import Button from "components/Button";
@@ -14,6 +13,16 @@ import Date from "components/Date";
 import defaultDate, { isFutureDate } from "utils/date";
 import Form from "components/Form";
 import TextArea from "components/Textarea";
+
+export const Close = styled(CloseButton)`
+  grid-column: 14/15;
+  grid-row: 1/3;
+
+  @media only screen and (max-width: 600px) {
+    grid-column: 13/15;
+    grid-row: 1/2;
+  }
+`;
 
 export const MyDate = styled(Date)`
   grid-column: 2/6;
@@ -25,6 +34,13 @@ export const MyDate = styled(Date)`
   }
 `;
 
+export const MyForm = styled(Form)`
+  ${modal}
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  grid-template-rows: repeat(14, 1fr);
+`;
+
 export const MyTextArea = styled(TextArea)`
   grid-column: 2/14;
   grid-row: 3/10;
@@ -32,25 +48,6 @@ export const MyTextArea = styled(TextArea)`
   @media only screen and (max-width: 600px) {
     grid-column: 2/14;
     grid-row: 2/8;
-  }
-`;
-
-export const Wrapper = styled.section`
-  ${fullScreen}
-  z-index: 150;
-
-  @media only screen and (max-width: 600px) {
-    left: 0px;
-  }
-`;
-
-export const Close = styled(CloseButton)`
-  grid-column: 14/15;
-  grid-row: 1/3;
-
-  @media only screen and (max-width: 600px) {
-    grid-column: 13/15;
-    grid-row: 1/2;
   }
 `;
 
@@ -65,16 +62,19 @@ export const Submit = styled(Button)`
   }
 `;
 
-export const MyForm = styled(Form)`
-  ${modal}
-  display: grid;
-  grid-template-columns: repeat(14, 1fr);
-  grid-template-rows: repeat(14, 1fr);
+export const Wrapper = styled.section`
+  ${fullScreen}
+  z-index: 150;
+
+  @media only screen and (max-width: 600px) {
+    left: 0px;
+  }
 `;
+
 function AddForm({ setShowForm }) {
   const dispatch = useDispatch();
-  const newCardId = useSelector(cardIdSelector);
   const formRef = useRef({});
+  const newCardId = useSelector(cardIdSelector);
 
   const handleClose = () => {
     setShowForm(null);
@@ -101,21 +101,21 @@ function AddForm({ setShowForm }) {
   const validationCallback = (data) => {
     if (isFutureDate(data)) {
       return {
-        result: true,
         error: null,
+        result: true,
       };
     }
 
     return {
-      result: false,
       error: `Past dates not allowed 🙂`,
+      result: false,
     };
   };
 
   return (
     <Wrapper>
       <MyForm formRef={formRef}>
-        <Close handleClick={handleClose}>X</Close>
+        <Close handleClose={handleClose}>X</Close>
         <MyTextArea
           autoFocus
           name="description"

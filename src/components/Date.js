@@ -29,7 +29,7 @@ function Date({ className, defaultValue, formRef, name, validationCallback }) {
         type="date"
         value={field.data}
       />
-      <Tooltip show={field.error} coords={tooltipRef.current}>
+      <Tooltip coords={tooltipRef.current} show={field.error}>
         {field.error}
       </Tooltip>
     </>

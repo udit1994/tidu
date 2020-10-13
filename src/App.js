@@ -16,10 +16,10 @@ const EditForm = lazy(() => import("components/EditForm"));
 const Wrapper = styled.section`
   ${fullScreen}
   justify-content: space-around;
+  min-width: 1336px;
   overflow-x: auto;
   padding: 20px 0;
   position: relative;
-  min-width: 1336px;
 
   @media only screen and (max-width: 600px) {
     min-width: 0px;
@@ -30,8 +30,8 @@ const Wrapper = styled.section`
     ${pseudoBackground}
     border-color: red;
     border-radius: 5%/90%;
-    left: 0;
     bottom: 0;
+    left: 0;
   }
 
   ::after {
@@ -44,11 +44,10 @@ const Wrapper = styled.section`
 `;
 
 function App() {
-  const listData = useSelector(listSelector);
-
-  const [listIndex, setListIndex] = useState(0);
   const [coords, setCoords] = useState({ x: 500, y: 500 });
+  const [listIndex, setListIndex] = useState(0);
   const [showForm, setshowForm] = useState(null);
+  const listData = useSelector(listSelector);
   const [showGuide, setShowGuide] = useState(
     true && !localStorage.getItem("redux-state")
   );

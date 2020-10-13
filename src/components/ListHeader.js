@@ -3,19 +3,19 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
 import { changeTitle } from "actions/list";
-import InputText from "components/InputText";
 import Form from "components/Form";
+import InputText from "components/InputText";
 
 const colors = ["violet", "orange", "lightblue", "pink"];
 
 const Wrapper = styled.header`
   background-color: ${(props) => props.backgroundColor};
-  text-align: center;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  z-index: 10;
   height: 30px;
   padding-top: 5px;
+  text-align: center;
+  z-index: 10;
 `;
 
 const Title = styled.p`
@@ -27,17 +27,6 @@ function ListHeader({ children, id, index }) {
   const formRef = useRef({});
 
   const [showInput, setShowInput] = useState(false);
-
-  const validationCallback = (data) => {
-    if (data.length < 20) {
-      return { result: true };
-    }
-
-    return {
-      result: false,
-      error: ` Max Length 20 characters 🙂`,
-    };
-  };
 
   const handleBlur = () => {
     const { header } = formRef.current;
@@ -54,12 +43,21 @@ function ListHeader({ children, id, index }) {
     }
   };
 
+  const validationCallback = (data) => {
+    if (data.length < 20) {
+      return { result: true };
+    }
+
+    return {
+      error: ` Max Length 20 characters 🙂`,
+      result: false,
+    };
+  };
+
   const render = !showInput ? (
-    <>
-      <Title index={index} onDoubleClick={handleBlur}>
-        {children}
-      </Title>
-    </>
+    <Title index={index} onDoubleClick={handleBlur}>
+      {children}
+    </Title>
   ) : (
     <Form formRef={formRef}>
       <InputText
@@ -67,13 +65,13 @@ function ListHeader({ children, id, index }) {
         handleBlur={handleBlur}
         handleKeyDown={handleKeyDown}
         name="header"
-        style={{ backgroundColor: colors[index] }}
+        style={{ backgroundColor: colors[id - 1] }}
         validationCallback={validationCallback}
       />
     </Form>
   );
 
-  return <Wrapper backgroundColor={colors[index]}>{render}</Wrapper>;
+  return <Wrapper backgroundColor={colors[id - 1]}>{render}</Wrapper>;
 }
 
 export default React.memo(ListHeader);

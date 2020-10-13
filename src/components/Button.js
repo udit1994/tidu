@@ -15,11 +15,9 @@ export const CustomButton = styled.button`
   }
 `;
 
-function Button(props) {
-  const { children, handleClick, className, type } = props;
-
+function Button({ children, className, handleClick, type }) {
   return (
-    <CustomButton onClick={handleClick} className={className} type={type}>
+    <CustomButton className={className} onClick={handleClick} type={type}>
       {children}
     </CustomButton>
   );

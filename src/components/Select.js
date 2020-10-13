@@ -7,7 +7,7 @@ export const CustomSelect = styled.select`
   ${InputStyle}
 `;
 
-function Select({ children, className, defaultValue, name, formRef }) {
+function Select({ children, className, defaultValue, formRef, name }) {
   const [value, setValue] = useState(defaultValue);
 
   const handleChange = (e) => {
@@ -18,7 +18,7 @@ function Select({ children, className, defaultValue, name, formRef }) {
   };
 
   return (
-    <CustomSelect value={value} className={className} onChange={handleChange}>
+    <CustomSelect className={className} onChange={handleChange} value={value}>
       {children}
     </CustomSelect>
   );

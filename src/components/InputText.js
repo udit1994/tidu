@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 import Tooltip from "components/Tooltip";
-import useTooltip from "hooks/useTooltip";
 import useInput from "hooks/useInput";
+import useTooltip from "hooks/useTooltip";
 
 export const CustomInput = styled.input`
   border: 0;
@@ -35,8 +35,8 @@ function InputText({
   return (
     <>
       <CustomInput
-        className={className}
         autoFocus
+        className={className}
         onBlur={handleBlur ? handleBlur : null}
         onChange={handleChange ? handleChange : null}
         onKeyDown={handleKeyDown ? handleKeyDown : null}
@@ -45,7 +45,7 @@ function InputText({
         type="text"
         value={field.data}
       />
-      <Tooltip show={field.error} coords={tooltipRef.current}>
+      <Tooltip coords={tooltipRef.current} show={field.error}>
         {field.error}
       </Tooltip>
     </>

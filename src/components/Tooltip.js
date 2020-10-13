@@ -4,21 +4,21 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   background-color: pink;
   border-radius: 5px;
-  z-index: 200;
+  display: inline;
+  left: ${(props) => props.x}px;
   padding: 2px;
   position: fixed;
   top: ${(props) => props.y}px;
-  left: ${(props) => props.x}px;
-  display: inline;
+  z-index: 200;
 
   ::after {
-    border: 5px solid;
     border-color: transparent transparent pink transparent;
+    border: 5px solid;
     content: "";
     left: 50%;
+    margin: auto;
     position: absolute;
     top: -10px;
-    margin: auto;
   }
 `;
 
@@ -27,7 +27,7 @@ function Tooltip({ children, coords, show }) {
     return null;
   }
 
-  const { left, top, height } = coords;
+  const { height, left, top } = coords;
 
   return (
     show && (

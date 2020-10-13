@@ -53,8 +53,9 @@ function EditForm({ setShowForm }) {
   } = cardData;
 
   const handleClose = () => {
-    setShowForm(null);
     dispatch(deSelectTodo());
+
+    setShowForm(null);
   };
 
   const handleDeleteCard = (e) => {
@@ -84,21 +85,21 @@ function EditForm({ setShowForm }) {
   const validationCallback = (data) => {
     if (isFutureDate(data)) {
       return {
-        result: true,
         error: null,
+        result: true,
       };
     }
 
     return {
-      result: false,
       error: `Past dates not allowed 🙂`,
+      result: false,
     };
   };
 
   return (
     <Wrapper>
       <MyForm formRef={formRef}>
-        <Close handleClick={handleClose}>X</Close>
+        <Close handleClose={handleClose}>X</Close>
         <MyTextArea
           autoFocus
           defaultValue={oldDescription}
