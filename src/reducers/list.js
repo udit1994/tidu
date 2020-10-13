@@ -36,6 +36,7 @@ function list(state = initialState, action) {
           title,
         },
       };
+
     case types.ADD_TODO:
       const { id: cardId } = action.payload;
 
@@ -43,6 +44,7 @@ function list(state = initialState, action) {
         ...state,
         1: { ...state[1], cards: [...state[1].cards, cardId] },
       };
+
     case types.UPDATE_TODO:
       const { id: myId, newBelongsTo, belongsTo } = action.payload;
 
@@ -68,8 +70,9 @@ function list(state = initialState, action) {
 
       return {
         ...state,
-        [todoId]: { ...state[1], cards: newListIds },
+        [bt]: { ...state[bt], cards: newListIds },
       };
+
     case types.CHANGE_STATUS:
       const { cardId: cId, listId: oldlId, newList } = action.payload;
 
@@ -87,6 +90,7 @@ function list(state = initialState, action) {
           cards: [...state[newList].cards, cId],
         },
       });
+
     default:
       return state;
   }

@@ -34,10 +34,10 @@ function card(state = initialState, action) {
       });
 
     case types.DELETE_TODO:
-      const { cardId } = action.payload;
-      const newIds = state.ids.filter((id) => id !== cardId);
+      const { todoId } = action.payload;
+      const newIds = state.ids.filter((id) => id !== todoId);
 
-      return Object.assign({}, state, { [cardId]: null, ids: newIds });
+      return Object.assign({}, state, { [todoId]: null, ids: newIds });
 
     case types.CHANGE_STATUS:
       const { cardId: cId, newList: nList } = action.payload;

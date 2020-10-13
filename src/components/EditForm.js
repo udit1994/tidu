@@ -57,7 +57,7 @@ function EditForm({ setShowForm }) {
     dispatch(deSelectTodo());
   };
 
-  const handleDeleteCard = () => {
+  const handleDeleteCard = (e) => {
     dispatch(deleteTodo(id, belongsTo));
 
     handleClose();
@@ -123,7 +123,11 @@ function EditForm({ setShowForm }) {
             return acc;
           }, [])}
         </Status>
-        <Delete onClick={handleDeleteCard} backgroundColor="red">
+        <Delete
+          handleClick={handleDeleteCard}
+          backgroundColor="red"
+          type="submit"
+        >
           Delete
         </Delete>
         <Submit

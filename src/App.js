@@ -107,7 +107,6 @@ function App() {
         <Lists
           listIds={isSmallScreen ? [listIndex + 1] : listData.ids}
           setshowForm={setshowForm}
-          showGuide={showGuide}
           showForm={showForm}
         />
         <AddTodo onClick={() => setshowForm("add")}>+</AddTodo>

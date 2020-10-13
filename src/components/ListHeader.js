@@ -3,7 +3,6 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
 import { changeTitle } from "actions/list";
-import Tooltip from "components/Tooltip";
 import InputText from "components/InputText";
 import Form from "components/Form";
 
@@ -23,7 +22,7 @@ const Title = styled.p`
   margin: 0;
 `;
 
-function ListHeader({ children, id, index, showGuide }) {
+function ListHeader({ children, id, index }) {
   const dispatch = useDispatch();
   const formRef = useRef({});
 
@@ -60,9 +59,6 @@ function ListHeader({ children, id, index, showGuide }) {
       <Title index={index} onDoubleClick={handleBlur}>
         {children}
       </Title>
-      <Tooltip show={showGuide && index === 0}>
-        Double click to give me a new name!
-      </Tooltip>
     </>
   ) : (
     <Form formRef={formRef}>

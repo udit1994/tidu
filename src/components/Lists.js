@@ -32,7 +32,7 @@ const Container = styled.section`
 
 const hideScrollbar = () => <div />;
 
-function Lists({ listIds, setshowForm, showGuide, showForm }) {
+function Lists({ listIds, setshowForm, showForm }) {
   const dispatch = useDispatch();
 
   const listData = useSelector(listSelector);
@@ -60,7 +60,7 @@ function Lists({ listIds, setshowForm, showGuide, showForm }) {
         renderTrackHorizontal={hideScrollbar}
         renderTrackVertical={hideScrollbar}
       >
-        <ListHeader id={id} index={index} showGuide={showGuide}>
+        <ListHeader id={id} index={index}>
           {listData[id].title}
         </ListHeader>
         {listData[id].cards.map((todoId) => (

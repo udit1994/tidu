@@ -80,7 +80,8 @@ function AddForm({ setShowForm }) {
     setShowForm(null);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const { description, dueDate } = formRef.current;
 
     if (description?.length > 0) {
