@@ -12,8 +12,8 @@ const Wrapper = styled.div`
   z-index: 200;
 
   ::after {
-    border-color: transparent transparent pink transparent;
     border: 5px solid;
+    border-color: transparent transparent pink transparent;
     content: "";
     left: 50%;
     margin: auto;

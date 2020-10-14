@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import styled from "styled-components";
 
 import { addTodo } from "actions/todo";
-import { cardIdSelector } from "selectors/cardSelector";
+import { todoIdSelector } from "selectors/todoSelector";
 import { fullScreen } from "mixins";
 import { modal } from "mixins";
 import Button from "components/Button";
@@ -74,7 +74,7 @@ export const Wrapper = styled.section`
 function AddForm({ setShowForm }) {
   const dispatch = useDispatch();
   const formRef = useRef({});
-  const newCardId = useSelector(cardIdSelector);
+  const newtodoId = useSelector(todoIdSelector);
 
   const handleClose = () => {
     setShowForm(null);
@@ -87,7 +87,7 @@ function AddForm({ setShowForm }) {
     if (description?.length > 0) {
       dispatch(
         addTodo(
-          newCardId,
+          newtodoId,
           description,
           dueDate ? dueDate : defaultDate,
           defaultDate

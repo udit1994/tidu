@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import card from "./todo";
+import todo from "./todo";
 import list from "./list";
 import ui from "./ui";
 
 const rootReducer = combineReducers({
-  card,
+  todo,
   list,
   ui,
 });

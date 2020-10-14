@@ -1,8 +1,8 @@
 export const saveState = (state) => {
   try {
-    Object.keys(state.card).forEach((id) => {
-      if (!state.card[id]) {
-        delete state.card[id];
+    Object.keys(state.todo).forEach((id) => {
+      if (!state.todo[id]) {
+        delete state.todo[id];
       }
     });
 

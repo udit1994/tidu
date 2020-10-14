@@ -2,18 +2,19 @@ import * as types from "constants/actionTypes";
 
 const initialState = {};
 
-function card(state = initialState, action) {
+function ui(state = initialState, action) {
   switch (action.type) {
     case types.SELECT_TODO:
-      const { id } = action.payload;
-      return { ...state, selectedCard: id };
+      const { todoId } = action.payload;
 
-    case types.UNSELECT_TODO:
-      return { ...state, selectedCard: null };
+      return { ...state, selectedTodo: todoId };
+
+    case types.DESELECT_TODO:
+      return { ...state, selectedTodo: null };
 
     default:
       return state;
   }
 }
 
-export default card;
+export default ui;

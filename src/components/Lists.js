@@ -32,7 +32,7 @@ const hideScrollbar = () => <div />;
 function Lists({ listIds, setshowForm, showForm }) {
   const dispatch = useDispatch();
   const listData = useSelector(listSelector);
-  const [dragCard, setDragCard] = useState(null);
+  const [dragTodo, setDragTodo] = useState(null);
   const [newDragList, setNewDragList] = useState(null);
 
   const handleDragEnter = (id, e) => {
@@ -41,7 +41,7 @@ function Lists({ listIds, setshowForm, showForm }) {
     setNewDragList(id);
   };
 
-  const handleDragEnd = () => dispatch(changeStatus(newDragList, ...dragCard));
+  const handleDragEnd = () => dispatch(changeStatus(newDragList, ...dragTodo));
 
   return listIds.map((id, index) => (
     <Container
@@ -58,10 +58,10 @@ function Lists({ listIds, setshowForm, showForm }) {
         <ListHeader id={id} index={index}>
           {listData[id].title}
         </ListHeader>
-        {listData[id].cards.map((todoId) => (
+        {listData[id].todos.map((todoId) => (
           <Todo
             key={todoId}
-            setDragCard={setDragCard}
+            setDragTodo={setDragTodo}
             setshowForm={setshowForm}
             todoId={todoId}
           />

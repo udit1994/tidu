@@ -4,22 +4,22 @@ const initialState = {
   1: {
     id: 1,
     title: "To do",
-    cards: [],
+    todos: [],
   },
   2: {
     id: 2,
     title: "Let's begin",
-    cards: [],
+    todos: [],
   },
   3: {
     id: 3,
     title: "In Progress",
-    cards: [],
+    todos: [],
   },
   4: {
     id: 4,
     title: "Finish",
-    cards: [],
+    todos: [],
   },
   ids: [1, 2, 3, 4],
 };
@@ -38,43 +38,43 @@ function list(state = initialState, action) {
       };
 
     case types.ADD_TODO:
-      const { id: cardId } = action.payload;
+      const { id: todoId } = action.payload;
 
       return {
         ...state,
-        1: { ...state[1], cards: [...state[1].cards, cardId] },
+        1: { ...state[1], todos: [...state[1].todos, todoId] },
       };
 
     case types.UPDATE_TODO:
-      const { id: myId, newBelongsTo, belongsTo } = action.payload;
+      const { id: myId, newStatus, status } = action.payload;
 
-      if (belongsTo === newBelongsTo) {
+      if (status === newStatus) {
         return { ...state };
       }
 
-      const removeFromList = state[belongsTo].cards.filter((id) => id !== myId);
+      const removeFromList = state[status].todos.filter((id) => id !== myId);
 
       return {
         ...state,
-        [belongsTo]: { ...state[belongsTo], cards: removeFromList },
-        [newBelongsTo]: {
-          ...state[newBelongsTo],
-          cards: [...state[newBelongsTo].cards, myId],
+        [status]: { ...state[status], todos: removeFromList },
+        [newStatus]: {
+          ...state[newStatus],
+          todos: [...state[newStatus].todos, myId],
         },
       };
 
     case types.DELETE_TODO:
-      const { todoId, belongsTo: bt } = action.payload;
+      const { todoId: deletedTodo, status: st } = action.payload;
 
-      const newListIds = state[bt].cards.filter((id) => id !== todoId);
+      const newListIds = state[st].todos.filter((id) => id !== deletedTodo);
 
       return {
         ...state,
-        [bt]: { ...state[bt], cards: newListIds },
+        [st]: { ...state[st], todos: newListIds },
       };
 
     case types.CHANGE_STATUS:
-      const { cardId: cId, listId: oldlId, newList } = action.payload;
+      const { todoId: tId, listId: oldlId, newList } = action.payload;
 
       if (oldlId === newList) {
         return { ...state };
@@ -83,11 +83,11 @@ function list(state = initialState, action) {
       return Object.assign({}, state, {
         [oldlId]: {
           ...state[oldlId],
-          cards: state[oldlId].cards.filter((cardId) => cardId !== cId),
+          todos: state[oldlId].todos.filter((todoId) => todoId !== tId),
         },
         [newList]: {
           ...state[newList],
-          cards: [...state[newList].cards, cId],
+          todos: [...state[newList].todos, tId],
         },
       });
 

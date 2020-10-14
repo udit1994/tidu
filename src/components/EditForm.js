@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import React, { useRef } from "react";
 import styled from "styled-components";
 
-import { cardInfoSelector } from "selectors/cardSelector";
+import { todoInfoSelector } from "selectors/todoSelector";
 import { deleteTodo, deSelectTodo, updateTodo } from "actions/todo";
 import { isFutureDate } from "utils/date";
 import { listSelector } from "selectors/listSelector";
@@ -41,16 +41,16 @@ const Status = styled(Select)`
 
 function EditForm({ setShowForm }) {
   const dispatch = useDispatch();
-  const cardData = useSelector(cardInfoSelector);
+  const todoInfo = useSelector(todoInfoSelector);
   const listData = useSelector(listSelector);
   const formRef = useRef({});
 
   const {
-    belongsTo,
+    status,
     description: oldDescription,
     dueDate: oldDueDate,
     id,
-  } = cardData;
+  } = todoInfo;
 
   const handleClose = () => {
     dispatch(deSelectTodo());
@@ -58,14 +58,14 @@ function EditForm({ setShowForm }) {
     setShowForm(null);
   };
 
-  const handleDeleteCard = (e) => {
-    dispatch(deleteTodo(id, belongsTo));
+  const handleDeleteTodo = (e) => {
+    dispatch(deleteTodo(id, status));
 
     handleClose();
   };
 
   const handleSubmit = () => {
-    const { description, dueDate, newBelongsTo } = formRef.current;
+    const { description, dueDate, newStatus } = formRef.current;
 
     if (description?.length !== 0) {
       dispatch(
@@ -73,8 +73,8 @@ function EditForm({ setShowForm }) {
           id,
           description ? description : oldDescription,
           dueDate ? dueDate : oldDueDate,
-          newBelongsTo ? newBelongsTo : belongsTo,
-          belongsTo
+          newStatus ? newStatus : status,
+          status
         )
       );
     }
@@ -111,7 +111,7 @@ function EditForm({ setShowForm }) {
           name="dueDate"
           validationCallback={validationCallback}
         />
-        <Status defaultValue={belongsTo} name="newBelongsTo">
+        <Status defaultValue={status} name="newStatus">
           {Object.values(listData).reduce((acc, data, index) => {
             if (data.id) {
               acc.push(
@@ -125,7 +125,7 @@ function EditForm({ setShowForm }) {
           }, [])}
         </Status>
         <Delete
-          handleClick={handleDeleteCard}
+          handleClick={handleDeleteTodo}
           backgroundColor="red"
           type="submit"
         >

@@ -5,13 +5,13 @@ const initialState = {
   nextId: 1,
 };
 
-function card(state = initialState, action) {
+function todo(state = initialState, action) {
   switch (action.type) {
     case types.ADD_TODO:
       const { description, dueDate, id, startDate } = action.payload;
 
       return Object.assign({}, state, {
-        [id]: { description, dueDate, startDate, belongsTo: 1, id },
+        [id]: { description, dueDate, startDate, status: 1, id },
         ids: [...state.ids, id],
         nextId: id + 1,
       });
@@ -21,13 +21,13 @@ function card(state = initialState, action) {
         description: desc,
         dueDate: due,
         id: myId,
-        newBelongsTo,
+        newStatus,
       } = action.payload;
 
       return Object.assign({}, state, {
         [myId]: {
           ...state[myId],
-          belongsTo: newBelongsTo,
+          status: newStatus,
           description: desc,
           dueDate: due,
         },
@@ -40,12 +40,12 @@ function card(state = initialState, action) {
       return Object.assign({}, state, { [todoId]: null, ids: newIds });
 
     case types.CHANGE_STATUS:
-      const { cardId: cId, newList: nList } = action.payload;
+      const { todoId: tId, newList: nList } = action.payload;
 
       return Object.assign({}, state, {
-        [cId]: {
-          ...state[cId],
-          belongsTo: nList,
+        [tId]: {
+          ...state[tId],
+          status: nList,
         },
       });
 
@@ -54,4 +54,4 @@ function card(state = initialState, action) {
   }
 }
 
-export default card;
+export default todo;

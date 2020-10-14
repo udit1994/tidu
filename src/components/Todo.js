@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import React from "react";
 import styled from "styled-components";
 
-import { cardSelector } from "selectors/cardSelector";
+import { todoSelector } from "selectors/todoSelector";
 import { colors } from "constants/appConstants";
 import { selectTodo } from "actions/todo";
 
@@ -43,11 +43,11 @@ const Footer = styled.footer`
   width: 100%;
 `;
 
-function Todo({ todoId, setDragCard, setshowForm }) {
+function Todo({ todoId, setDragTodo, setshowForm }) {
   const dispatch = useDispatch();
-  const cardData = useSelector(cardSelector);
+  const todoInfo = useSelector(todoSelector);
 
-  const { belongsTo, description, dueDate, startDate } = cardData[todoId];
+  const { status, description, dueDate, startDate } = todoInfo[todoId];
 
   const handleDoubleClick = () => {
     dispatch(selectTodo(todoId));
@@ -55,7 +55,7 @@ function Todo({ todoId, setDragCard, setshowForm }) {
     setshowForm("update");
   };
 
-  const handleDragStart = () => setDragCard([todoId, belongsTo]);
+  const handleDragStart = () => setDragTodo([todoId, status]);
 
   return (
     <Wrapper

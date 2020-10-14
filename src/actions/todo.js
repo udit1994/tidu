@@ -5,39 +5,32 @@ export const addTodo = (id, description, dueDate, startDate) => ({
   payload: { description, dueDate, id, startDate },
 });
 
-export const changeStatus = (newList, cardId, listId) => ({
+export const changeStatus = (newList, todoId, listId) => ({
   type: types.CHANGE_STATUS,
-  payload: { cardId, listId, newList },
+  payload: { listId, newList, todoId },
 });
 
-export const deleteTodo = (todoId, belongsTo) => ({
+export const deleteTodo = (todoId, status) => ({
   type: types.DELETE_TODO,
-  payload: { belongsTo, todoId },
+  payload: { status, todoId },
 });
 
-export const deSelectTodo = (cardId) => ({
-  type: types.UNSELECT_TODO,
-  payload: { cardId },
+export const deSelectTodo = () => ({
+  type: types.DESELECT_TODO,
 });
 
-export const selectTodo = (cardId) => ({
+export const selectTodo = (todoId) => ({
   type: types.SELECT_TODO,
-  payload: { id: cardId },
+  payload: { todoId },
 });
 
-export const updateTodo = (
-  id,
-  description,
-  dueDate,
-  newBelongsTo,
-  belongsTo
-) => ({
+export const updateTodo = (id, description, dueDate, newStatus, status) => ({
   type: types.UPDATE_TODO,
   payload: {
-    belongsTo,
+    status,
     description,
     dueDate,
     id,
-    newBelongsTo,
+    newStatus,
   },
 });
