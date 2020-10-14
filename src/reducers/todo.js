@@ -1,10 +1,5 @@
 import * as types from "constants/actionTypes";
 
-const initialState = {
-  ids: [],
-  nextId: 1,
-};
-
 function todo(state = initialState, action) {
   switch (action.type) {
     case types.ADD_TODO:
@@ -53,5 +48,10 @@ function todo(state = initialState, action) {
       return state;
   }
 }
+
+const initialState = {
+  ids: [],
+  nextId: 1,
+};
 
 export default todo;

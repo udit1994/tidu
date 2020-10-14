@@ -47,7 +47,7 @@ function Todo({ todoId, setDragTodo, setshowForm }) {
   const dispatch = useDispatch();
   const todoInfo = useSelector(todoSelector);
 
-  const { status, description, dueDate, startDate } = todoInfo[todoId];
+  const { description, dueDate, startDate, status } = todoInfo[todoId];
 
   const handleDoubleClick = () => {
     dispatch(selectTodo(todoId));

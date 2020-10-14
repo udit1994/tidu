@@ -27,10 +27,10 @@ export const selectTodo = (todoId) => ({
 export const updateTodo = (id, description, dueDate, newStatus, status) => ({
   type: types.UPDATE_TODO,
   payload: {
-    status,
     description,
     dueDate,
     id,
     newStatus,
+    status,
   },
 });

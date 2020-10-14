@@ -41,15 +41,15 @@ const Status = styled(Select)`
 
 function EditForm({ setShowForm }) {
   const dispatch = useDispatch();
-  const todoInfo = useSelector(todoInfoSelector);
   const listData = useSelector(listSelector);
+  const todoInfo = useSelector(todoInfoSelector);
   const formRef = useRef({});
 
   const {
-    status,
     description: oldDescription,
     dueDate: oldDueDate,
     id,
+    status,
   } = todoInfo;
 
   const handleClose = () => {

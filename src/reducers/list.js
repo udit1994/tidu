@@ -1,29 +1,5 @@
 import * as types from "constants/actionTypes";
 
-const initialState = {
-  1: {
-    id: 1,
-    title: "To do",
-    todos: [],
-  },
-  2: {
-    id: 2,
-    title: "Let's begin",
-    todos: [],
-  },
-  3: {
-    id: 3,
-    title: "In Progress",
-    todos: [],
-  },
-  4: {
-    id: 4,
-    title: "Finish",
-    todos: [],
-  },
-  ids: [1, 2, 3, 4],
-};
-
 function list(state = initialState, action) {
   switch (action.type) {
     case types.CHANGE_TITLE:
@@ -95,5 +71,29 @@ function list(state = initialState, action) {
       return state;
   }
 }
+
+const initialState = {
+  1: {
+    id: 1,
+    title: "To do",
+    todos: [],
+  },
+  2: {
+    id: 2,
+    title: "Let's begin",
+    todos: [],
+  },
+  3: {
+    id: 3,
+    title: "In Progress",
+    todos: [],
+  },
+  4: {
+    id: 4,
+    title: "Finish",
+    todos: [],
+  },
+  ids: [1, 2, 3, 4],
+};
 
 export default list;

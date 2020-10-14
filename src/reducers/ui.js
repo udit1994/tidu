@@ -1,7 +1,5 @@
 import * as types from "constants/actionTypes";
 
-const initialState = {};
-
 function ui(state = initialState, action) {
   switch (action.type) {
     case types.SELECT_TODO:
@@ -16,5 +14,7 @@ function ui(state = initialState, action) {
       return state;
   }
 }
+
+const initialState = {};
 
 export default ui;
