@@ -25,6 +25,7 @@ const Description = styled.pre`
   overflow: hidden;
   padding: 5px 10px 10px;
   text-justify: auto;
+  white-space: pre-wrap;
 
   ::first-letter {
     text-transform: capitalize;

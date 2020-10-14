@@ -17,7 +17,7 @@ const Container = styled.section`
   margin-right: 5px;
   opacity: ${(props) => (props.showForm ? "0.5" : "1")};
   overflow: auto;
-  width: 350px;
+  width: 325px;
   -webkit-box-shadow: 0px 0px 11px 2px rgba(0, 0, 0, 0.75);
 
   @media only screen and (max-width: 600px) {
